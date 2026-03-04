@@ -1,0 +1,53 @@
+.stream() — converts the list into a stream, which lets you process elements one by one using a pipeline of operations
+.filter(c -> c.id == customerId) — goes through every element and keeps only the ones where c.id == customerId. It doesn't stop at the first element of the list — it evaluates the
+condition against each customer
+.findFirst() — from the filtered results, take the first match. It returns an Optional<Customer>
+.orElse(null) — if the Optional is empty (no match found), return null
+
+
+.stream() is a method of the Collection interface (which List extends).
+
+  What it does: it creates a Stream<T> — a sequential pipeline that lets you process elements one by one without modifying the original list.
+
+  Think of it like a conveyor belt:
+
+  List: [Customer1, Customer2, Customer3]
+           ↓          ↓          ↓
+  Stream:  →  →  →  →  →  →  →  →  (elements flow through operations)
+
+  Without stream, you'd write:
+
+  for (Customer c : customers) {
+      if (c.id == customerId) {
+          return c;
+      }
+  }
+  return null;
+
+c -> c.id == customerId This is a lambda expression — a short way to write an anonymous function introduced in Java 8.
+
+  - c — the parameter (each Customer from the stream)
+  - -> — the arrow operator (separates parameter from body)
+  - c.id == customerId — the body (returns a boolean)
+
+  It's a shorthand for writing:
+
+  new Predicate<Customer>() {
+      @Override
+      public boolean test(Customer c) {
+          return c.id == customerId;
+      }
+  }
+
+- InputStream (java.io.InputStream) — a class that represents a stream of raw bytes. It's used to read data from a source (file, network, etc.) byte by byte.
+  - Customer.class — returns the Class<Customer> object. Every class in Java has a .class property that gives you its Class object (from java.lang.Class).
+  - .getClassLoader() — a method of Class (java.lang.Class). It returns the ClassLoader that loaded this class. The ClassLoader knows where your compiled classes and resources live.
+  - .getResourceAsStream(String) — a method of ClassLoader (java.lang.ClassLoader). It looks for the given file in the classpath (typically src/main/resources/) and returns it as an
+  InputStream. Returns null if the file is not found.
+
+InputStream reads one byte at a time, not one word. It deals with raw bytes, not text.
+  That's why the code wraps it with readers:
+  new BufferedReader(new InputStreamReader(is))
+  - InputStreamReader — converts the byte stream (InputStream) into a character stream (reads characters instead of raw bytes)
+  - BufferedReader — adds buffering and gives you the readLine() method to read a full line at a time
+

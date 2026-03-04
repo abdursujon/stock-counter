@@ -1,0 +1,82 @@
+@Entity marks this class as a JPA entity, telling the JPA provider (like Hibernate) that this class represents a table in the database.
+
+@Data is a Lombok annotation that auto-generates all of these at compile time:
+
+  - @Getter - getters for all fields
+  - @Setter - setters for all fields
+  - @ToString - toString() method
+  - @EqualsAndHashCode - equals() and hashCode() methods
+  - @RequiredArgsConstructor - constructor for final fields
+
+@NoArgsConstructor - Generates a constructor with no arguments:
+  public StockEntity() {}
+  JPA/Hibernate requires this to create entity instances internally via reflection.
+
+  @AllArgsConstructor - Generates a constructor with all fields:
+  public StockEntity(int itemId, String name, int itemsCountPerId) {}
+  This is convenient for us when creating objects in code.
+
+@GeneratedValue(strategy = IDENTITY) is telling Hibernate: "Don't generate the ID in Java. Let the database's auto-increment handle it."
+ You never set itemId. The database automatically assigns it as 1, 2, 3, 4... incrementing with each new row.
+
+  So your stock table ends up like:
+
+  ┌────────┬───────┬─────────────────┐
+  │ itemId │ name  │ itemsCountPerId │
+  ├────────┼───────┼─────────────────┤
+  │ 1      │ Rice  │ 50              │
+  ├────────┼───────┼─────────────────┤
+  │ 2      │ Sugar │ 30              │
+  ├────────┼───────┼─────────────────┤
+  │ 3      │ Salt  │ 20              │
+  └────────┴───────┴─────────────────┘
+
+  @GeneratedValue(strategy = IDENTITY) is telling Hibernate: "Don't generate the ID in Java. Let the database's
+  auto-increment handle it."
+
+IDENTITY itself doesn't do the auto-increment.
+
+  IDENTITY tells Hibernate: "rely on the database's own auto-increment feature."
+
+  The database does the actual auto-incrementing. For example, in MySQL your table would be created like:
+
+  CREATE TABLE stock (
+      item_id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(255),
+      items_count_per_id INT
+  );
+
+  That AUTO_INCREMENT is a database feature, not a Jakarta/JPA feature.
+
+  So the flow is:
+
+  1. You pick strategy = IDENTITY
+  2. Hibernate sees that and skips generating an ID in Java
+  3. Hibernate inserts the row without an ID
+  4. Database assigns the next auto-increment number
+  5. Hibernate reads back the generated ID and sets it on your itemId field
+
+  So IDENTITY is just saying: "trust the database to handle it."
+
+@Repository
+public interface CustomerRepository extends JpaRepository<CustomerEntity, Integer> {
+}
+It's empty because JpaRepository already provides everything. Behind the scenes, Spring sees this interface at startup and auto-generates the implementation for you.
+
+  You get all of this for free without writing a single line:
+
+  ┌───────────────┬───────────────────────────────────────────────────┐
+  │    Method     │                   Generated SQL                   │
+  ├───────────────┼───────────────────────────────────────────────────┤
+  │ findAll()     │ SELECT * FROM customers                           │
+  ├───────────────┼───────────────────────────────────────────────────┤
+  │ findById(2)   │ SELECT * FROM customers WHERE id = 2              │
+  ├───────────────┼───────────────────────────────────────────────────┤
+  │ save(entity)  │ INSERT INTO customers ... or UPDATE customers ... │
+  ├───────────────┼───────────────────────────────────────────────────┤
+  │ deleteById(2) │ DELETE FROM customers WHERE id = 2                │
+  ├───────────────┼───────────────────────────────────────────────────┤
+  │ count()       │ SELECT COUNT(*) FROM customers                    │
+  ├───────────────┼───────────────────────────────────────────────────┤
+  │ existsById(2) │ SELECT EXISTS(... WHERE id = 2)                   │
+  └───────────────┴───────────────────────────────────────────────────┘

@@ -1,0 +1,4 @@
+to view h2 console:
+
+first enable it in application.properties: spring.h2.console.enabled=true
+then visit: http://localhost:8080/h2-console

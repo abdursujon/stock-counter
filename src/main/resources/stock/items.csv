@@ -1,0 +1,101 @@
+itemId, name, itemsCountPerId
+1, Apple, 1000
+  2, Banana, 2000
+  3, Orange, 1200
+  4, Mushroom, 1400
+  5, Orange Juice, 1600
+  6, Egg, 2000
+  7, Milk, 1800
+  8, Bread, 1500
+  9, Rice, 2500
+  10, Chicken, 3500
+  11, Beef, 4500
+  12, Salmon, 5000
+  13, Tomato, 800
+  14, Potato, 900
+  15, Onion, 700
+  16, Garlic, 600
+  17, Ginger, 750
+  18, Carrot, 850
+  19, Spinach, 1100
+  20, Lettuce, 950
+  21, Cucumber, 800
+  22, Pepper, 1300
+  23, Broccoli, 1400
+  24, Cabbage, 900
+  25, Corn, 1100
+  26, Peas, 1000
+  27, Lemon, 600
+  28, Lime, 650
+  29, Grapes, 2200
+  30, Watermelon, 3000
+  31, Mango, 2500
+  32, Pineapple, 2800
+  33, Strawberry, 3200
+  34, Blueberry, 3500
+  35, Cherry, 4000
+  36, Peach, 2100
+  37, Pear, 1800
+  38, Plum, 1700
+  39, Coconut, 2400
+  40, Avocado, 2600
+  41, Butter, 2200
+  42, Cheese, 3000
+  43, Yogurt, 1800
+  44, Cream, 2000
+  45, Honey, 3500
+  46, Sugar, 1200
+  47, Salt, 500
+  48, Flour, 1100
+  49, Pasta, 1600
+  50, Noodles, 1400
+  51, Soy Sauce, 900
+  52, Vinegar, 700
+  53, Olive Oil, 3200
+  54, Sunflower Oil, 2800
+  55, Tuna, 2500
+  56, Shrimp, 4500
+  57, Crab, 5500
+  58, Lobster, 7000
+  59, Sardine, 1800
+  60, Catfish, 3000
+  61, Turkey, 4000
+  62, Duck, 4500
+  63, Lamb, 5000
+  64, Pork, 3800
+  65, Sausage, 2800
+  66, Bacon, 3200
+  67, Ham, 3000
+  68, Almond, 4000
+  69, Cashew, 4500
+  70, Walnut, 3800
+  71, Peanut, 2000
+  72, Pistachio, 5000
+  73, Chocolate, 2500
+  74, Coffee, 3500
+  75, Tea, 1500
+  76, Green Tea, 1800
+  77, Apple Juice, 2000
+  78, Grape Juice, 2200
+  79, Mango Juice, 2400
+  80, Coconut Water, 1800
+  81, Mineral Water, 800
+  82, Soda, 1200
+  83, Cereal, 2600
+  84, Oatmeal, 2200
+  85, Pancake Mix, 1900
+  86, Jam, 1600
+  87, Peanut Butter, 2800
+  88, Ketchup, 1100
+  89, Mustard, 900
+  90, Mayonnaise, 1400
+  91, Hot Sauce, 1000
+  92, Barbecue Sauce, 1300
+  93, Tofu, 1500
+  94, Tempeh, 1700
+  95, Seaweed, 2000
+  96, Popcorn, 1200
+  97, Chips, 1400
+  98, Crackers, 1100
+  99, Biscuit, 1300
+  100, Ice Cream, 2800

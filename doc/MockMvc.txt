@@ -1,0 +1,11 @@
+MockMvc = a fake HTTP client that tests your endpoints without starting a real server.
+  // Without @Autowired — you set up everything yourself
+  StockRepository stockRepo = new StockRepository(...);
+  OrderRepository orderRepo = new OrderRepository(...);
+  DailyStockReport service = new DailyStockReport(stockRepo, orderRepo);
+  StockController controller = new StockController(service);
+  MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+  // With @Autowired — Spring does it all
+  @Autowired
+  private MockMvc mockMvc;  // ready to use

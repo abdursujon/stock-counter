@@ -1,0 +1,15 @@
+@Data is a Lombok annotation that auto-generates:
+  - Getters for all fields
+  - Setters for all non-final fields
+  - toString()
+  - equals() and hashCode()
+  - @RequiredArgsConstructor
+
+@AllArgsConstructor is a Lombok annotation that generates a constructor with all fields as parameters, in declaration
+  order.
+  For example a class call Customer, we will not need to create the constructor, Lombok does it for us. Such as it generates:
+
+  public Customer(int id, String name) {
+      this.id = id;
+      this.name = name;
+  }

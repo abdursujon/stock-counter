@@ -1,0 +1,10 @@
+public class DataLoader implements CommandLineRunner
+It tells Spring: "run some code automatically after the app starts."
+
+@Override
+    public void run(String... args) throws Exception{
+        loadCustomers();
+        loadStock();
+        loadOrders();
+    }
+The reason it's String... args is because that's how CommandLineRunner interface defines it. You must match the interface signature.
