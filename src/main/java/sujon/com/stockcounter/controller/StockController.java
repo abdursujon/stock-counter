@@ -2,8 +2,12 @@ package sujon.com.stockcounter.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sujon.com.stockcounter.dto.CustomerDTO;
+import sujon.com.stockcounter.repository.OrderRepository;
+import sujon.com.stockcounter.repository.entity.CustomerEntity;
 import sujon.com.stockcounter.repository.entity.OrderEntity;
 import sujon.com.stockcounter.repository.entity.StockEntity;
+import sujon.com.stockcounter.repository.CustomerRepository;
 import sujon.com.stockcounter.service.DailyStockReport;
 
 import java.text.SimpleDateFormat;
@@ -15,9 +19,13 @@ import java.util.List;
 public class StockController {
 
     private final DailyStockReport stockReport;
+    private final CustomerRepository customerRepository;
+    private final OrderRepository orderRepository;
 
-    public StockController(DailyStockReport stockReport) {
+    public StockController(DailyStockReport stockReport, CustomerRepository customerRepository, OrderRepository orderRepository) {
         this.stockReport = stockReport;
+        this.customerRepository = customerRepository;
+        this.orderRepository = orderRepository;
     }
 
     @GetMapping("/total")
@@ -60,6 +68,15 @@ public class StockController {
         return stockReport. getListOfAllOrdersByAllCustomers();
     }
 
+    @GetMapping("/get-customer/{customerId}")
+    public ResponseEntity<CustomerEntity> getCustomer(@PathVariable int customerId){
+        CustomerEntity customer = customerRepository.findById(customerId).orElse(null);
+        if(customer == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(customer);
+    }
+
     // Update the stock count for an item
     @PutMapping("/item-per-stock/{itemId}")
     public ResponseEntity<Integer> updateStockCountForAnItem(@PathVariable int itemId, @RequestParam int newCount){
@@ -68,5 +85,27 @@ public class StockController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(updated.getItemsCountPerId());
+    }
+
+    // Post mapping to create a new customer
+    @PostMapping("/customer")
+    public ResponseEntity<CustomerEntity> addCustomer(@RequestBody CustomerDTO customerDTO){
+        CustomerEntity customer = new CustomerEntity();
+        customer.setId(customerDTO.id());
+        customer.setName(customerDTO.name());
+        CustomerEntity saved = customerRepository.save(customer);
+        return ResponseEntity.status(201).body(saved);
+    }
+
+    // Delete mapping to delete a customer
+    @DeleteMapping("/delete-customer/{customerId}")
+    public ResponseEntity<Void> deleteCustomerByTheirId(@PathVariable int customerId){
+        CustomerEntity customer = customerRepository.findById(customerId).orElse(null);
+        if(customer == null){
+            return ResponseEntity.notFound().build();
+        }
+        customer.setDeleted(true);
+        customerRepository.save(customer);
+        return ResponseEntity.noContent().build();
     }
 }
