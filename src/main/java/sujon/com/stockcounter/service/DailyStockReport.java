@@ -53,9 +53,10 @@ public class DailyStockReport implements StockReport {
     }
 
     @Override
-    public List<OrderEntity> getListOfAllOrdersByAllCustomers() {
+    public List<OrderEntity> getListOfAllOrdersByAllCustomers(){
         return orderRepository.findAll();
     }
+
 
     // Update stock count for an item which PutMapping controller will implement as an endpoint
     public StockEntity updateStockCountForAnItem(int itemId, int newCount){
